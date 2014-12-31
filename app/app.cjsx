@@ -1,11 +1,10 @@
 # @cjsx React.DOM
 
 React = require('React')
+Router = require('react-router')
 
-AppComponent = React.createClass {
-  displayName: "DMDLife"
-  render: ->
-    <div className="container">Ready to start!</div>
-}
+routers = require('./router')
 
-React.render(<AppComponent/>, document.getElementById("app"))
+Router.run routers, Router.HistoryLocation, (Handler, state) ->
+  params = state.params
+  React.render(<Handler params={params}/>, document.getElementById("app"))

@@ -26,6 +26,9 @@ app.use express.static('public', options: {
   etag: true
 })
 
+app.get '/*', (req, res) ->
+  res.sendFile __dirname + '/public/index.html'
+
 # Start Listing
 server = app.listen PORT, ->
 
