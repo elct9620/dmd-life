@@ -29,5 +29,5 @@ node_modules
 
 # Ignore bower files
 public/vendor
-public/css
 public/js
+public/css
