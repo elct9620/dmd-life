@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "coffee server.coffee",
-    "watch-js": "watchify --extension='.cjsx' --extension='.coffee' ./app/app.cjsx -o ./public/js/app.js -v",
+    "watch-js": "watchify --extension='.cjsx' --extension='.coffee' ./app/app.cjsx -o ./public/js/app.js -dv",
     "watch-css": "node-sass --include-path ./bourbon --source-map -w sass/ -r -x -o ./public/css sass/app.scss app.css",
     "watch-sass": "coffee ./bin/sass.coffee",
     "watch": "npm run watch-js & npm run watch-sass & nodemon server.coffee",
