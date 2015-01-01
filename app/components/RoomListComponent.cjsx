@@ -7,6 +7,7 @@
 React = require('react')
 
 RoomItem = require('./RoomItemComponent.cjsx')
+ChatWidget = require('./ChatWidgetComponent.cjsx')
 
 # TODO: Fetch room list from server
 rooms = [
@@ -28,7 +29,14 @@ RoomListComponent = React.createClass {
 
     <div className="container">
       <div className="row">
-        {roomItems}
+        <div className="col-md-8">
+          <div className="row">
+            {roomItems}
+          </div>
+        </div>
+        <div className="col-md-4">
+          <ChatWidget className="chat-widget" />
+        </div>
       </div>
     </div>
 }

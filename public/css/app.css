@@ -1,2 +1,22 @@
-body {
-  color: black; }
+/**
+ * Application Style
+ */
+/**
+ * Module
+ */
+/**
+ * Chat Widget
+ */
+.chat-widget {
+  position: absolute;
+  width: 100%;
+  height: calc(100vh - 72px); }
+  .chat-widget .messages {
+    overflow: scroll;
+    height: 80vh; }
+  .chat-widget .fixed-bottom {
+    position: absolute;
+    bottom: 2em;
+    width: 100%; }
+
+/*# sourceMappingURL=app.css.map */

@@ -45,6 +45,8 @@ server = http.listen PORT, ->
       proxy: "#{host}:#{port}"
       files: ['public/**/*.{js,css,html}']
       port: DEV_PORT
+      namespace: (namespace) ->
+        "/#{namespace}"
     }
 
 

@@ -1,0 +1,23 @@
+/**
+ * Chat Widget
+ */
+
+.chat-widget {
+  position: absolute;
+
+  width: 100%;
+  height: calc(100vh - 72px);
+
+  .messages {
+    overflow: scroll;
+
+    height: 80vh;
+  }
+
+  .fixed-bottom {
+    position: absolute;
+    bottom: 2em;
+
+    width: 100%;
+  }
+}

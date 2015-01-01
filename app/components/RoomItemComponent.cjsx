@@ -17,7 +17,7 @@ RoomItemComponent = React.createClass {
     joinButtonClass = "btn btn-primary"
     joinButtonClass += " disabled" if @props.info.playing
 
-    <div className="col-md-4">
+    <div className="col-md-6">
       <div className="panel panel-default">
         <div className="panel-heading">{@props.info.roomName} ( {isWaiting} )</div>
         <div className="panel-body">
