@@ -27,7 +27,7 @@ GameServer = (http) ->
     user.setNickname("訪客" + (new Date()).getTime().toString().substr(-3, 3))
 
     # Setup Realtime Controller
-    ChatController.bind(socket)
+    (new ChatController(socket)).bind()
 
 
     # Handle Disconnect Event
