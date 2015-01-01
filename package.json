@@ -40,10 +40,10 @@
     "watchr": "^2.4.12"
   },
   "devDependencies": {
+    "browser-sync": "^1.8.2",
     "browserify": "^8.0.2",
     "coffee-reactify": "^2.1.0",
     "envify": "^3.2.0",
-    "express-livereload": "0.0.24",
     "node-sass": "^1.2.3",
     "nodemon": "^1.2.1",
     "uglify-js": "^2.4.16",

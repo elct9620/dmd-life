@@ -7,18 +7,19 @@
 
 # Config
 PORT = process.env.PORT || 3000
+DEV_PORT = process.env.DEV_PORT || 8080
 ENV = process.env.NODE_ENV || "development"
 
 # Load Library
 express = require('express')
-livereload = require('express-livereload')
+http = require('http')
+browserSync = require('browser-sync')
+
+GameServer = require('./game-server/server')
 
 # Initialize Express
 app = express()
-
-livereload(app, {
-  watchDir: __dirname + '/public'
-})
+http = http.Server(app)
 
 # Setup Express
 app.use express.static('public', options: {
@@ -29,11 +30,21 @@ app.use express.static('public', options: {
 app.get '/*', (req, res) ->
   res.sendFile __dirname + '/public/index.html'
 
-# Start Listing
-server = app.listen PORT, ->
+# Setup Game Server
+GameServer(http)
 
-  host = server.address().address
+# Start Listing
+server = http.listen PORT, ->
+
+  host = server.address().address || 'localhost'
   port = server.address().port
 
-  console.log "DMD Life listening at http://%s:%s", host, port
+  if ENV == 'development'
+    browserSync {
+      open: false
+      proxy: "#{host}:#{port}"
+      files: ['public/**/*.{js,css,html}']
+      port: DEV_PORT
+    }
+
 
