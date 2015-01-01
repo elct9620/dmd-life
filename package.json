@@ -12,7 +12,8 @@
     "watch": "npm run watch-js & npm run watch-sass & nodemon server.coffee",
     "build-js": "NODE_ENV=production browserify --extension='.cjsx' --extension='.coffee' app/app.cjsx | uglifyjs -cm > public/js/app.min.js",
     "build-css": "node-sass --include-path ./bourbon -o ./public/css --output-style compressed ./sass/app.scss app.css",
-    "build": "npm run build-js & npm run build-css"
+    "build": "npm run build-js & npm run build-css",
+    "postinstall": "npm run build && bower install"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,9 @@
       "coffee-reactify",
       "envify"
     ]
+  },
+  "engines": {
+    "node": "0.10.x"
   },
   "dependencies": {
     "coffee-script": "^1.8.0",
