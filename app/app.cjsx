@@ -1,6 +1,6 @@
 # @cjsx React.DOM
 
-React = require('React')
+React = require('react')
 
 router = require('./router')
 
