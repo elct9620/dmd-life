@@ -42,18 +42,17 @@
     "react": "^0.12.2",
     "react-router": "^0.11.6",
     "socket.io": "^1.2.1",
-    "watchr": "^2.4.12"
-  },
-  "devDependencies": {
     "browser-sync": "^1.8.2",
     "browserify": "^8.0.2",
-    "chalk": "^0.5.1",
     "coffee-reactify": "^2.1.0",
     "envify": "^3.2.0",
-    "gaze": "^0.6.4",
     "node-sass": "^1.2.3",
+    "uglify-js": "^2.4.16"
+  },
+  "devDependencies": {
+    "chalk": "^0.5.1",
+    "gaze": "^0.6.4",
     "nodemon": "^1.2.1",
-    "uglify-js": "^2.4.16",
     "watchify": "^2.2.1"
   }
 }
