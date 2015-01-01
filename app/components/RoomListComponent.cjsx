@@ -9,27 +9,59 @@ React = require('react')
 RoomItem = require('./RoomItemComponent.cjsx')
 ChatWidget = require('./ChatWidgetComponent.cjsx')
 
-# TODO: Fetch room list from server
-rooms = [
-  {id: 1, roomName: 'Test Room 01', roomMaxPlayer: 6, roomPlayers: 4, playing: true}
-  {id: 2, roomName: 'Test Room 02', roomMaxPlayer: 4, roomPlayers: 1}
-  {id: 3, roomName: 'Test Room 03', roomMaxPlayer: 5, roomPlayers: 4, playing: true}
-  {id: 4, roomName: 'Test Room 04', roomMaxPlayer: 6, roomPlayers: 3, playing: true}
-  {id: 5, roomName: 'Test Room 05', roomMaxPlayer: 4, roomPlayers: 2}
-]
+RoomStore = require('../stores/RoomStore')
+RoomActions = require('../actions/RoomActions')
 
+getRooms = ->
+  {
+    rooms: RoomStore.getAll()
+  }
 
 RoomListComponent = React.createClass {
   displayName: "RoomList"
+  getInitialState: ->
+    getRooms()
+
+  componentDidMount: ->
+    RoomStore.addChangeListener @_onChange
+
+  componentWillUnmount: ->
+    RoomStore.removeChangeListeher @_onChange
+
+  _onChange: ->
+    @setState(getRooms())
+
+  _onInputChange: (e) ->
+    @setState { roomName: e.target.value }
+
+  _onSubmit: (e) ->
+    e.preventDefault()
+
+    if @state.roomName.length > 0
+      RoomActions.create { name: @state.roomName }
+      @setState { roomName: '' }
+
   render: ->
 
     roomItems = []
-    for room, key in rooms
+    for key, room of @state.rooms
       roomItems.push <RoomItem key={key} info={room} />
 
     <div className="container">
       <div className="row">
         <div className="col-md-8">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="pull-right">
+                <form onSubmit={@_onSubmit} className="form-inline">
+                  <div className="form-group">
+                    <input type="text" className="form-control" onChange={@_onInputChange} value={@state.roomName} placeholder="房間名稱" />
+                    <button type="submit" className="btn btn-primary">創建</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
           <div className="row">
             {roomItems}
           </div>

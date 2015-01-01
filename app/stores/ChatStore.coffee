@@ -38,7 +38,7 @@ dispatcher = (payload) ->
     return true
 
 
-ChatStore = assign( EventEmitter.prototype, {
+ChatStore = assign {}, EventEmitter.prototype, {
   getAll: ->
     _messages
 
@@ -52,6 +52,6 @@ ChatStore = assign( EventEmitter.prototype, {
     @removeListener(CHANGE_EVENT, callback)
 
   dispatcherIndex: AppDispatcher.register( dispatcher )
-})
+}
 
 module.exports = ChatStore

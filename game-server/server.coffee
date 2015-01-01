@@ -14,6 +14,7 @@ User = require('./model/User')
 
 # Controller
 ChatController = require('./controller/ChatController')
+RoomListController = require('./controller/RoomListController')
 
 _messages = []
 
@@ -28,6 +29,7 @@ GameServer = (http) ->
 
     # Setup Realtime Controller
     (new ChatController(socket)).bind()
+    (new RoomListController(socket)).bind()
 
 
     # Handle Disconnect Event

@@ -22,6 +22,7 @@ class User
 
   # Public Member
   nickname: "訪客"
+  currentRoomId: null
 
   constructor: (initSocket) ->
     if _onlineUsers.hasOwnProperty(initSocket.id)
@@ -30,8 +31,19 @@ class User
     socket = initSocket
     _onlineUsers[socket.id] = @
 
+    @currentRoomId = null
+
   setNickname: (nickname) ->
     @nickname = nickname
+
+  joinRoom: (room) ->
+    console.log room
+    @currentRoomId = room.id
+    socket.emit 'room:joined', @currentRoomId
+
+  leaveRoom: ->
+    @currentRoomId = null
+    socket.emit 'room:leave', @currentRoomId
 
   destroy: ->
     delete _onlineUsers[socket.id]

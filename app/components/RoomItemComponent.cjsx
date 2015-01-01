@@ -17,12 +17,17 @@ RoomItemComponent = React.createClass {
     joinButtonClass = "btn btn-primary"
     joinButtonClass += " disabled" if @props.info.playing
 
+    players = @props.info.players.length
+
     <div className="col-md-6">
       <div className="panel panel-default">
-        <div className="panel-heading">{@props.info.roomName} ( {isWaiting} )</div>
+        <div className="panel-heading">{@props.info.name} ( {isWaiting} )</div>
         <div className="panel-body">
           <div>
-            <strong>玩家</strong>： {@props.info.roomPlayers} / {@props.info.roomMaxPlayer}
+            <strong>房主</strong>：{@props.info.host.nickname}
+          </div>
+          <div>
+            <strong>玩家</strong>： {players} / {@props.info.maxPlayer}
           </div>
           <div className="text-right">
             <Link to="Room" className={joinButtonClass} params={param}>加入</Link>
