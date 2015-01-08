@@ -35,7 +35,7 @@ GameServer = (http) ->
     # Handle Disconnect Event
     socket.on 'disconnect', ->
       # Clear user on disconnect
-      User.getUser(socket.id).destroy
+      User.getUser(socket.id).destroy() if User.getUser(socket.id)
       socket.broadcast.emit('channel', {users: User.getUsers()})
 
 

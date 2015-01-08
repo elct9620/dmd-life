@@ -10,6 +10,7 @@ assign = require('react/lib/Object.assign')
 
 CHANGE_EVENT = 'change'
 
+# API should move to action
 socket = io('/game')
 socket.emit 'room:refresh'
 

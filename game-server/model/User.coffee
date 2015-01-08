@@ -4,6 +4,7 @@
 # Handle users on server
 ###
 
+EventEmitter = require('events').EventEmitter
 Command = require('../Command')
 
 _onlineUsers = {}
@@ -16,7 +17,7 @@ Command.register '/nick', (socket, newNickname) ->
 
 # User Class
 
-class User
+class User extends EventEmitter
   # Private Member
   socket = null
 
@@ -24,7 +25,13 @@ class User
   nickname: "訪客"
   currentRoomId: null
 
+  # Events
+  @EVENTS: {
+    'OFFLINE': 'OFFLINE'
+  }
+
   constructor: (initSocket) ->
+    super
     if _onlineUsers.hasOwnProperty(initSocket.id)
       return _onlineUsers[initSocket.id]
 
@@ -46,6 +53,7 @@ class User
     socket.emit 'room:leave', @currentRoomId
 
   destroy: ->
+    @emit User.EVENTS.OFFLINE
     delete _onlineUsers[socket.id]
 
   @getUser: (socketId) ->

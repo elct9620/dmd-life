@@ -4,6 +4,8 @@
 
 EventEmitter = require('events').EventEmitter
 
+User = require('./User')
+
 _rooms = {}
 
 insertRoom = (room) ->
@@ -44,20 +46,22 @@ class Room extends EventEmitter
 
     @join(host)
 
+    @host.on User.EVENTS.OFFLINE, @_onHostOffline
+
   join: (player) ->
     if @players.length < @maxPlayer
       player.joinRoom(@)
       @players.push(player)
-      @emit(Room.EVENTS.PLAYER_JOIN)
+      @emit(Room.EVENTS.PLAYER_JOIN, player)
       return true
     return false
 
-  leave: (player) ->
+  leave: (player) =>
     for joinedPlayer, key in @players
       if joinedPlayer.id is player.id
         @players.splice(key, 1)
         player.leaveRoom()
-        @emit(Room.EVENT.PLAYER_LEAVE)
+        @emit(Room.EVENTS.PLAYER_LEAVE, player)
         return true
     return false
 
@@ -65,15 +69,26 @@ class Room extends EventEmitter
     @isPlaying = true
     @emit(Room.STATUS.GAME_START)
 
-  destroy: ->
+  destroy: =>
     if _rooms.hasOwnProperty(@id)
+      @releasePlayers()
+      @emit(Room.STATUS.GAME_END)
       delete _rooms[@id]
-      @emit(Room.STATUE.GAME_END)
       return true
 
     return false
 
+  releasePlayers: ->
+    for joinedPlayer, _ in @players
+      joinedPlayer.leaveRoom()
+
+  _onHostOffline: =>
+    @destroy()
+
   @getAllRoom: ->
     _rooms
+
+  @getRoom: (roomID) ->
+    _rooms[roomID]
 
 module.exports = Room
